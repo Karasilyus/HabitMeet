@@ -1,0 +1,664 @@
+openapi: 3.0.3
+info:
+  title: HabitMeet API
+  description: Habit tracking and social matching API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api
+    description: Local development
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        neighborhood:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+
+    RegisterRequest:
+      type: object
+      required:
+        - name
+        - email
+        - password
+        - neighborhood
+      properties:
+        name:
+          type: string
+          minLength: 2
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 6
+        neighborhood:
+          type: string
+          minLength: 2
+
+    LoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+
+    AuthResponse:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        token:
+          type: string
+
+    Habit:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        name:
+          type: string
+        category:
+          type: string
+          enum: [fitness, health, learning, mindfulness, productivity, social, other]
+        streak:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+
+    HabitInput:
+      type: object
+      required:
+        - name
+        - category
+      properties:
+        name:
+          type: string
+        category:
+          type: string
+
+    HabitLogRequest:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+          description: Optional; defaults to today
+
+    HabitLogResponse:
+      type: object
+      properties:
+        log:
+          type: object
+          properties:
+            id:
+              type: integer
+            habit_id:
+              type: integer
+            date:
+              type: string
+              format: date
+            completed:
+              type: boolean
+        streak:
+          type: integer
+        newMatches:
+          type: array
+          items:
+            $ref: '#/components/schemas/Match'
+
+    Match:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id1:
+          type: integer
+        user_id2:
+          type: integer
+        habit_id:
+          type: integer
+        habit_name:
+          type: string
+        habit_category:
+          type: string
+        partner_id:
+          type: integer
+        partner_name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+
+    ForumPost:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        habit_id:
+          type: integer
+        title:
+          type: string
+        body:
+          type: string
+        author_name:
+          type: string
+        habit_name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+
+    ForumPostInput:
+      type: object
+      required:
+        - title
+        - body
+        - habit_id
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+        habit_id:
+          type: integer
+
+    Message:
+      type: object
+      properties:
+        id:
+          type: integer
+        match_id:
+          type: integer
+        sender_id:
+          type: integer
+        sender_name:
+          type: string
+        body:
+          type: string
+        is_read:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+
+    MessageInput:
+      type: object
+      required:
+        - body
+      properties:
+        body:
+          type: string
+
+paths:
+  /auth/register:
+    post:
+      tags: [Auth]
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Email already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /habits:
+    get:
+      tags: [Habits]
+      summary: List user habits
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Habit list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  habits:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Habit'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags: [Habits]
+      summary: Create habit
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HabitInput'
+      responses:
+        '201':
+          description: Habit created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  habit:
+                    $ref: '#/components/schemas/Habit'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /habits/{id}:
+    put:
+      tags: [Habits]
+      summary: Update habit
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HabitInput'
+      responses:
+        '200':
+          description: Habit updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  habit:
+                    $ref: '#/components/schemas/Habit'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags: [Habits]
+      summary: Delete habit
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Deleted
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /habits/{id}/log:
+    post:
+      tags: [Habits]
+      summary: Log daily habit completion
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HabitLogRequest'
+      responses:
+        '201':
+          description: Log created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HabitLogResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /matches:
+    get:
+      tags: [Matches]
+      summary: List user matches
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Match list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  matches:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Match'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /forum:
+    get:
+      tags: [Forum]
+      summary: List forum posts
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Post list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  posts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ForumPost'
+    post:
+      tags: [Forum]
+      summary: Create forum post
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForumPostInput'
+      responses:
+        '201':
+          description: Post created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  post:
+                    $ref: '#/components/schemas/ForumPost'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /forum/{id}:
+    put:
+      tags: [Forum]
+      summary: Update forum post
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                body:
+                  type: string
+      responses:
+        '200':
+          description: Updated
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags: [Forum]
+      summary: Delete forum post
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Deleted
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /messages/{matchId}:
+    get:
+      tags: [Messages]
+      summary: Get messages for a match
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: matchId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Message list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messages:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Message'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags: [Messages]
+      summary: Send a message
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: matchId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageInput'
+      responses:
+        '201':
+          description: Message sent
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    $ref: '#/components/schemas/Message'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
