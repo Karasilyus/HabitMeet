@@ -23,7 +23,7 @@ HabitMeet; kullanıcıların günlük alışkanlıklarını kayıt altına alıp
 |---|---|
 | Frontend | Vanilla JavaScript (SPA) |
 | Backend | Node.js + Express |
-| Veritabanı | PostgreSQL |
+| Veritabanı | SQlite|
 | Kimlik Doğrulama | JWT (Access Token) |
 | API Dokümantasyonu | Swagger / OpenAPI |
 | Test | Jest |
