@@ -1,3 +1,8 @@
+/* ============================================================
+   HabitMeet — Apple-style minimal theme
+   Drop-in replacement for frontend/styles/main.css
+   ============================================================ */
+
 :root {
   --bg: #ffffff;
   --surface: #ffffff;
@@ -21,7 +26,7 @@
   --font: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, sans-serif;
 }
-​
+
 *,
 *::before,
 *::after {
@@ -29,12 +34,12 @@
   margin: 0;
   padding: 0;
 }
-​
+
 html {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
-​
+
 body {
   font-family: var(--font);
   background: var(--surface-soft);
@@ -43,7 +48,7 @@ body {
   min-height: 100vh;
   font-size: 16px;
 }
-​
+
 h1,
 h2,
 h3 {
@@ -51,20 +56,20 @@ h3 {
   font-weight: 600;
   color: var(--text);
 }
-​
+
 a {
   color: var(--primary);
   text-decoration: none;
 }
-​
+
 a:hover {
   color: var(--primary-hover);
 }
-​
+
 .hidden {
   display: none !important;
 }
-​
+
 /* Header */
 .header {
   display: flex;
@@ -79,20 +84,20 @@ a:hover {
   top: 0;
   z-index: 100;
 }
-​
+
 .logo {
   font-weight: 700;
   font-size: 1.15rem;
   letter-spacing: -0.02em;
   color: var(--text);
 }
-​
+
 .nav {
   display: flex;
   gap: 0.25rem;
   flex: 1;
 }
-​
+
 .nav-link {
   padding: 0.5rem 0.9rem;
   border-radius: 999px;
@@ -101,24 +106,24 @@ a:hover {
   color: var(--text-muted);
   transition: background 0.15s ease, color 0.15s ease;
 }
-​
+
 .nav-link:hover {
   color: var(--text);
   background: var(--surface-hover);
 }
-​
+
 .nav-link.active {
   color: var(--primary);
   background: var(--primary-soft);
 }
-​
+
 /* Main */
 .main {
   max-width: 1120px;
   margin: 0 auto;
   padding: 2.5rem 1.5rem 4rem;
 }
-​
+
 .page-header {
   display: flex;
   align-items: center;
@@ -127,22 +132,22 @@ a:hover {
   gap: 1rem;
   margin-bottom: 2rem;
 }
-​
+
 .page-header h1 {
   font-size: 1.9rem;
   font-weight: 700;
   letter-spacing: -0.03em;
 }
-​
+
 .muted {
   color: var(--text-muted);
   font-size: 0.9rem;
 }
-​
+
 .error {
   color: var(--danger);
 }
-​
+
 /* Cards */
 .card {
   background: var(--surface);
@@ -151,13 +156,13 @@ a:hover {
   padding: 1.5rem;
   box-shadow: var(--shadow);
 }
-​
+
 .empty-state {
   text-align: center;
   padding: 3rem 2rem;
   color: var(--text-muted);
 }
-​
+
 /* Buttons */
 .btn {
   display: inline-flex;
@@ -175,67 +180,67 @@ a:hover {
   transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease,
     transform 0.1s ease;
 }
-​
+
 .btn:active {
   transform: scale(0.98);
 }
-​
+
 .btn:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
-​
+
 .btn:disabled {
   opacity: 0.45;
   cursor: not-allowed;
 }
-​
+
 .btn-primary {
   background: var(--primary);
   color: #fff;
 }
-​
+
 .btn-primary:hover:not(:disabled) {
   background: var(--primary-hover);
 }
-​
+
 .btn-ghost {
   background: var(--surface);
   color: var(--text);
   border: 1px solid var(--border);
 }
-​
+
 .btn-ghost:hover:not(:disabled) {
   background: var(--surface-hover);
 }
-​
+
 .btn-danger {
   background: var(--surface);
   color: var(--danger);
   border: 1px solid var(--border);
 }
-​
+
 .btn-danger:hover:not(:disabled) {
   background: var(--danger-soft);
   border-color: var(--danger);
 }
-​
+
 .btn-sm {
   min-height: 36px;
   padding: 0.35rem 0.85rem;
   font-size: 0.85rem;
   border-radius: 8px;
 }
-​
+
 .btn-block {
   width: 100%;
 }
-​
+
 /* Forms */
 .form-group {
   margin-bottom: 1.1rem;
 }
-​
+
 .form-group label {
   display: block;
   margin-bottom: 0.4rem;
@@ -243,7 +248,7 @@ a:hover {
   font-weight: 500;
   color: var(--text);
 }
-​
+
 .form-group input,
 .form-group select,
 .form-group textarea {
@@ -258,12 +263,12 @@ a:hover {
   font-size: 0.95rem;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
-​
+
 .form-group input::placeholder,
 .form-group textarea::placeholder {
   color: var(--text-muted);
 }
-​
+
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
@@ -271,14 +276,14 @@ a:hover {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px var(--primary-soft);
 }
-​
+
 .field-error {
   display: block;
   color: var(--danger);
   font-size: 0.8rem;
   margin-top: 0.3rem;
 }
-​
+
 /* Auth */
 .auth-layout {
   min-height: calc(100vh - 4rem);
@@ -287,32 +292,32 @@ a:hover {
   justify-content: center;
   padding: 2rem;
 }
-​
+
 .auth-card {
   width: 100%;
   max-width: 420px;
   padding: 2rem;
 }
-​
+
 .auth-title {
   font-size: 1.75rem;
   font-weight: 700;
   letter-spacing: -0.03em;
   margin-bottom: 0.35rem;
 }
-​
+
 .auth-subtitle {
   color: var(--text-muted);
   margin-bottom: 1.75rem;
 }
-​
+
 .auth-footer {
   margin-top: 1.5rem;
   text-align: center;
   color: var(--text-muted);
   font-size: 0.9rem;
 }
-​
+
 .auth-links {
   display: flex;
   flex-wrap: wrap;
@@ -320,20 +325,20 @@ a:hover {
   align-items: center;
   gap: 0.35rem;
 }
-​
+
 .auth-sep {
   opacity: 0.5;
 }
-​
+
 .forgot-success {
   margin-top: 1rem;
 }
-​
+
 .forgot-success .success-text {
   color: var(--success);
   margin-bottom: 1rem;
 }
-​
+
 .dev-reset-box {
   margin-top: 1rem;
   padding: 1rem;
@@ -342,17 +347,17 @@ a:hover {
   border-radius: 10px;
   text-align: left;
 }
-​
+
 .dev-reset-box .dev-reset-link {
   margin: 0.75rem 0;
   text-align: center;
 }
-​
+
 .dev-reset-box .dev-url {
   word-break: break-all;
   font-size: 0.75rem;
 }
-​
+
 /* Habits */
 .filters {
   display: flex;
@@ -360,7 +365,7 @@ a:hover {
   gap: 0.75rem;
   margin-bottom: 1.25rem;
 }
-​
+
 .filters select {
   min-height: 40px;
   padding: 0.5rem 0.75rem;
@@ -370,24 +375,24 @@ a:hover {
   color: var(--text);
   font-family: inherit;
 }
-​
+
 .habits-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.25rem;
 }
-​
+
 .habit-card-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 1rem;
 }
-​
+
 .habit-card h3 {
   font-size: 1.1rem;
 }
-​
+
 .badge {
   display: inline-block;
   padding: 0.25rem 0.7rem;
@@ -398,12 +403,12 @@ a:hover {
   color: var(--text-muted);
   text-transform: capitalize;
 }
-​
+
 .badge-match {
   background: var(--primary-soft);
   color: var(--primary);
 }
-​
+
 .streak-display {
   text-align: center;
   padding: 1.25rem 1rem;
@@ -411,7 +416,7 @@ a:hover {
   background: var(--surface-soft);
   border-radius: 10px;
 }
-​
+
 .streak-number {
   display: block;
   font-size: 2.75rem;
@@ -420,33 +425,33 @@ a:hover {
   line-height: 1.1;
   color: var(--text);
 }
-​
+
 .streak-warm .streak-number {
   color: var(--warning);
 }
-​
+
 .streak-hot .streak-number {
   color: var(--success);
 }
-​
+
 .streak-label {
   font-size: 0.8rem;
   color: var(--text-muted);
 }
-​
+
 .habit-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
-​
+
 /* Matches */
 .matches-list {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
-​
+
 .match-card {
   display: flex;
   justify-content: space-between;
@@ -454,26 +459,26 @@ a:hover {
   flex-wrap: wrap;
   gap: 1rem;
 }
-​
+
 /* Forum */
 .forum-list {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
 }
-​
+
 .forum-card-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 0.75rem;
 }
-​
+
 .forum-body {
   margin-bottom: 0.75rem;
   white-space: pre-wrap;
 }
-​
+
 .forum-meta {
   display: flex;
   justify-content: space-between;
@@ -481,12 +486,12 @@ a:hover {
   color: var(--text-muted);
   margin-bottom: 0.5rem;
 }
-​
+
 .forum-actions {
   display: flex;
   gap: 0.5rem;
 }
-​
+
 .empty-type-row {
   display: flex;
   justify-content: space-between;
@@ -494,31 +499,31 @@ a:hover {
   gap: 1rem;
   padding: 0.5rem 0.25rem;
 }
-​
+
 .type-empty-row td {
   padding: 0.75rem 0.75rem;
 }
-​
+
 .forum-comments {
   border-top: 1px solid var(--border);
   margin-top: 1.25rem;
   padding-top: 1.25rem;
 }
-​
+
 .comment-list {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
   margin-bottom: 0.75rem;
 }
-​
+
 .comment-item {
   padding: 0.85rem 1rem;
   border: 1px solid var(--border);
   border-radius: 10px;
   background: var(--surface-soft);
 }
-​
+
 .comment-header {
   display: flex;
   justify-content: space-between;
@@ -527,27 +532,27 @@ a:hover {
   font-size: 0.85rem;
   color: var(--text-muted);
 }
-​
+
 .comment-form textarea {
   width: 100%;
   min-height: 80px;
   resize: vertical;
   margin-bottom: 0.75rem;
 }
-​
+
 .comment-form {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
-​
+
 /* Messages */
 .messages-page .back-link {
   display: block;
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
 }
-​
+
 .messages-container {
   display: flex;
   flex-direction: column;
@@ -556,7 +561,7 @@ a:hover {
   padding: 0;
   overflow: hidden;
 }
-​
+
 .messages-list {
   flex: 1;
   overflow-y: auto;
@@ -566,13 +571,13 @@ a:hover {
   gap: 0.6rem;
   background: var(--surface);
 }
-​
+
 .messages-empty {
   text-align: center;
   padding: 2rem;
   color: var(--text-muted);
 }
-​
+
 .message-bubble {
   max-width: 72%;
   padding: 0.65rem 1rem;
@@ -580,38 +585,38 @@ a:hover {
   background: var(--surface-hover);
   font-size: 0.95rem;
 }
-​
+
 .message-bubble.mine {
   align-self: flex-end;
   background: var(--primary);
   color: #fff;
   border-bottom-right-radius: 6px;
 }
-​
+
 .message-bubble.mine .message-sender,
 .message-bubble.mine .message-time {
   color: rgba(255, 255, 255, 0.75);
 }
-​
+
 .message-bubble.theirs {
   align-self: flex-start;
   border-bottom-left-radius: 6px;
 }
-​
+
 .message-sender {
   font-size: 0.75rem;
   color: var(--text-muted);
   display: block;
   margin-bottom: 0.2rem;
 }
-​
+
 .message-time {
   display: block;
   font-size: 0.7rem;
   color: var(--text-muted);
   margin-top: 0.3rem;
 }
-​
+
 .message-form {
   display: flex;
   gap: 0.5rem;
@@ -619,7 +624,7 @@ a:hover {
   border-top: 1px solid var(--border);
   background: var(--surface-soft);
 }
-​
+
 .message-form input {
   flex: 1;
   min-height: 44px;
@@ -630,13 +635,13 @@ a:hover {
   color: var(--text);
   font-family: inherit;
 }
-​
+
 .message-form input:focus {
   outline: none;
   border-color: var(--primary);
   box-shadow: 0 0 0 3px var(--primary-soft);
 }
-​
+
 /* Modal */
 .modal {
   position: fixed;
@@ -647,7 +652,7 @@ a:hover {
   justify-content: center;
   padding: 1rem;
 }
-​
+
 .modal-backdrop {
   position: absolute;
   inset: 0;
@@ -655,7 +660,7 @@ a:hover {
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
 }
-​
+
 .modal-content {
   position: relative;
   width: 100%;
@@ -663,14 +668,14 @@ a:hover {
   z-index: 1;
   box-shadow: 0 12px 48px rgba(0, 0, 0, 0.16);
 }
-​
+
 .modal-actions {
   display: flex;
   justify-content: flex-end;
   gap: 0.5rem;
   margin-top: 1.25rem;
 }
-​
+
 /* Toast */
 .toast {
   position: fixed;
@@ -685,17 +690,17 @@ a:hover {
   max-width: 360px;
   animation: slideIn 0.3s ease;
 }
-​
+
 .toast-success {
   border-color: var(--success);
   background: var(--success-soft);
 }
-​
+
 .toast-error {
   border-color: var(--danger);
   background: var(--danger-soft);
 }
-​
+
 @keyframes slideIn {
   from {
     transform: translateY(1rem);
@@ -706,7 +711,7 @@ a:hover {
     opacity: 1;
   }
 }
-​
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -715,7 +720,7 @@ a:hover {
     transition-duration: 0.01ms !important;
   }
 }
-​
+
 /* Habits dashboard table + charts */
 .habits-dashboard .dashboard-grid {
   display: grid;
@@ -724,22 +729,22 @@ a:hover {
   align-items: start;
   margin-bottom: 1.5rem;
 }
-​
+
 .table-panel {
   padding: 0;
   overflow: hidden;
 }
-​
+
 .table-scroll {
   overflow-x: auto;
 }
-​
+
 .habits-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.85rem;
 }
-​
+
 .habits-table th,
 .habits-table td {
   border-bottom: 1px solid var(--border);
@@ -747,7 +752,7 @@ a:hover {
   text-align: center;
   vertical-align: middle;
 }
-​
+
 .habits-table th {
   background: var(--surface-soft);
   color: var(--text-muted);
@@ -757,7 +762,7 @@ a:hover {
   letter-spacing: 0.04em;
   white-space: nowrap;
 }
-​
+
 .habits-table th.col-goal,
 .habits-table td.col-goal {
   text-align: left;
@@ -767,76 +772,76 @@ a:hover {
   background: var(--surface);
   z-index: 2;
 }
-​
+
 .habits-table th.col-goal {
   background: var(--surface-soft);
 }
-​
+
 .habits-table th.today,
 .habits-table td.today {
   background: var(--primary-soft);
 }
-​
+
 .col-day {
   min-width: 44px;
 }
-​
+
 .col-day small {
   display: block;
   font-size: 0.7rem;
   opacity: 0.8;
 }
-​
+
 .col-actions {
   min-width: 200px;
   white-space: nowrap;
 }
-​
+
 .goal-name {
   display: block;
   font-weight: 600;
   color: var(--text);
 }
-​
+
 .goal-streak {
   font-size: 0.75rem;
   color: var(--text-muted);
 }
-​
+
 .goal-sub {
   display: block;
   font-size: 0.85rem;
   color: var(--text-muted);
   margin-bottom: 0.15rem;
 }
-​
+
 .type-header-row .type-header-cell {
   background: var(--surface-soft);
   text-align: left;
   padding: 0.7rem 1rem;
   border-left: 3px solid var(--primary);
 }
-​
+
 .type-branch {
   font-weight: 700;
   font-size: 0.95rem;
   margin-right: 0.75rem;
 }
-​
+
 .type-meta {
   font-size: 0.8rem;
   color: var(--text-muted);
 }
-​
+
 .habit-row .col-goal {
   padding-left: 1.25rem;
 }
-​
+
 .form-hint {
   font-size: 0.8rem;
   margin-top: 0.35rem;
 }
-​
+
 .cell-btn {
   width: 34px;
   height: 34px;
@@ -848,33 +853,33 @@ a:hover {
   transition: border-color 0.15s ease, background 0.15s ease;
   font-size: 1rem;
 }
-​
+
 .cell-btn:hover {
   border-color: var(--primary);
   background: var(--primary-soft);
 }
-​
+
 .cell-btn.done {
   background: var(--success-soft);
   border: 1px solid var(--success);
   color: var(--success);
 }
-​
+
 .col-actions .btn {
   margin: 0.15rem;
 }
-​
+
 .charts-panel {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
-​
+
 .chart-card {
   text-align: center;
   padding: 1.25rem 1rem;
 }
-​
+
 .chart-card h3 {
   font-size: 0.8rem;
   font-weight: 600;
@@ -883,12 +888,12 @@ a:hover {
   margin-bottom: 0.5rem;
   color: var(--text-muted);
 }
-​
+
 .chart-card canvas {
   max-height: 100px;
   margin: 0 auto;
 }
-​
+
 .chart-value {
   font-size: 1.5rem;
   font-weight: 700;
@@ -896,11 +901,11 @@ a:hover {
   margin-top: 0.35rem;
   color: var(--primary);
 }
-​
+
 .sleep-section {
   margin-top: 0.5rem;
 }
-​
+
 .sleep-header {
   display: flex;
   flex-wrap: wrap;
@@ -909,14 +914,14 @@ a:hover {
   gap: 1rem;
   margin-bottom: 1rem;
 }
-​
+
 .sleep-form {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
   align-items: center;
 }
-​
+
 .sleep-form input[type='date'],
 .sleep-form input[type='number'] {
   min-height: 40px;
@@ -927,59 +932,58 @@ a:hover {
   color: var(--text);
   font-family: inherit;
 }
-​
+
 .sleep-form input[type='number'] {
   width: 80px;
 }
-​
+
 .sleep-chart-wrap {
   height: 220px;
   position: relative;
 }
-​
+
 #table-empty {
   padding: 1.5rem;
   text-align: center;
 }
-​
+
 @media (max-width: 1024px) {
   .habits-dashboard .dashboard-grid {
     grid-template-columns: 1fr;
   }
-​
+
   .charts-panel {
     flex-direction: row;
     flex-wrap: wrap;
   }
-​
+
   .chart-card {
     flex: 1;
     min-width: 140px;
   }
 }
-​
+
 @media (max-width: 640px) {
   .header {
     flex-wrap: wrap;
     padding: 0.75rem 1rem;
     gap: 0.75rem;
   }
-​
+
   .main {
     padding: 1.5rem 1rem 3rem;
   }
-​
+
   .page-header {
     flex-direction: column;
     align-items: flex-start;
   }
-​
+
   .habit-actions {
     flex-direction: column;
   }
-​
+
   .habit-actions .btn {
     width: 100%;
   }
 }
-​
