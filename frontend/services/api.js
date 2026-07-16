@@ -1,4 +1,6 @@
-const API_BASE = 'http://localhost:3000/api';
+const API_BASE = ['localhost', '127.0.0.1'].includes(window.location.hostname)
+  ? 'http://localhost:3000/api'
+  : 'https://habitmeet-production.up.railway.app/api';
 
 function getToken() {
   return localStorage.getItem('token');
